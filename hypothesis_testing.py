@@ -1,4 +1,3 @@
-import codecademylib3
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -81,17 +80,19 @@ thalach_asymptom = heart.thalach[heart.cp == 'asymptomatic']
 thalach_nonangin = heart.thalach[heart.cp == 'non-anginal pain']
 thalach_atypical = heart.thalach[heart.cp == 'atypical angina']
 
-# run ANOVA test, to check if the all types of chest pain have the same avergae thalach
+# run ANOVA test, to check if the all types of chest pain have the same avergae thalach.
 fstat, pval = stats.f_oneway(thalach_typical, thalach_asymptom, thalach_nonangin, thalach_atypical)
 print('ANOVA p-value:', pval)
-print('significant association' if pval < sig_threshold else 'no significance')
+print('There is at least one pair of chest pain categories for which people in those categories have significantly different thalach'\
+      if pval < sig_threshold else 'no significance')
 
 # run Tukey's test, to determine which pair of chest pain types has the significant difference in max heart rate values 'thalach'
+# use an overall type I error rate of 0.05 for all six comparisons
 tukey_results = pairwise_tukeyhsd(heart.thalach, heart.cp, 0.05)
 print(tukey_results)
 
 # Heart Disease and Chest Pain
-# run Chi-Square, to inestigate the relationship between the kind of chest pain and whether or not they have heart disease
+# run Chi-Square, to investigate the association between chest pain type and whether or not someone is diagnosed with heart disease
 Xtab = pd.crosstab(heart.cp, heart.heart_disease)
 print(Xtab)
 chi2, pval , dof, expected = stats.chi2_contingency(Xtab)
@@ -99,6 +100,7 @@ print('Association between chest pain type and whether or not someone is daignos
 print('significant association' if pval < sig_threshold else 'no significance')
 
 # Fasting Blood Sugar and Heart Disease
+# # run Chi-Square, to investigate the association between fasting blood sugar and whether or not someone is diagnosed with heart disease
 Ytab = pd.crosstab(heart.fbs, heart.heart_disease)
 print(Ytab)
 chi2, pval, dof, expected = stats.chi2_contingency(Ytab)
