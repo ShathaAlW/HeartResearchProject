@@ -8,13 +8,12 @@ from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
 # load data
 heart = pd.read_csv('heart_disease.csv')
-# print(heart.head())
 sig_threshold = 0.05
 
 # Predictors of Heart Disease
 # box plot thalach based on heart disease
 sns.boxplot(heart.thalach, heart.heart_disease)
-plt.title('Max Heart Rate \'thalach\' Association with Heart Disease')
+plt.title('Max Heart Rate Association with Heart Disease')
 plt.show()
 
 # save thalach for hd patients and non-hd patients
@@ -26,7 +25,7 @@ thalach_mean_diff = np.mean(thalach_no_hd) - np.mean(thalach_hd)
 thalach_median_diff = np.median(thalach_no_hd) - np.median(thalach_hd)
 print('Mean diff thalach:',thalach_mean_diff,'Median diff thalach:', thalach_median_diff)
 
-# two-sample t-test, to check if the avergae thalach of pateint with hd is significantly different from one without hd
+# two-sample t-test, to check if the avergae thalach of pateint with heart disease is significantly different from one without heart disease
 tstat, pval = stats.ttest_ind(thalach_hd, thalach_no_hd)
 print('p-value of two-sample t-test of thalach:', pval)
 
