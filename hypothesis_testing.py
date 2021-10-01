@@ -5,7 +5,6 @@ import seaborn as sns
 from scipy import stats
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-# load data
 heart = pd.read_csv('heart_disease.csv')
 sig_threshold = 0.05
 
